@@ -13,12 +13,22 @@ students = [
  "Norman Bates"
 ]
 #Introduce the Academy
-puts "The students of Villains Academy"
-puts "-------------"
-#Then print students from array...
+def print_header
+  puts "The students of Villains Academy"
+  puts "-------------"
+end
 
-students.each_with_index {|x, index|
-indexplus1 = index+1
-  puts "#{indexplus1}: #{x}"}
+#Then print students from array...
+def print(names)
+  names.each_with_index {|x, index|
+    indexplus1 = index+1
+    puts "#{indexplus1}: #{x}"}
+end
 #Then the number, and how great they are
-puts "Overall, we have #{students.count} great students"
+def print_footer(names)
+  puts "Overall, we have #{names.count} great students"
+end
+
+print_header
+print(students)
+print_footer(students)
