@@ -20,20 +20,14 @@ def input_students
 
   # get the first name
   name = gets.chomp
+    puts "And now the cohort please"
+  cohort = gets.chomp
   #when not empty, repeat code
     while !name.empty? do
-      @students << {name: name}
+      @students << {name: name, cohort: cohort}
         name = gets.chomp
+        cohort = gets.chomp
       end
-
-  puts "And now the cohort please"
-
-  cohort = gets.chomp
-
-    while !cohort.empty? do
-      @students << {cohort: cohort}
-      cohort = gets.chomp
-    end
 
     puts "Now we have #{@students.count} students"
 end
@@ -73,3 +67,5 @@ input_students
 print_header
 print(@students, "G")
 print_footer(@students)
+
+puts @students
