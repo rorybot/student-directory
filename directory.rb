@@ -16,22 +16,29 @@
 
 def input_students
   puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  #Create an empty array
+  puts "To finish, just hit return after typing the name"
 
   # get the first name
   name = gets.chomp
   #when not empty, repeat code
     while !name.empty? do
-      @students << {name: name, cohort: :august}
-        puts "Now we have #{@students.count} students"
-
+      @students << {name: name}
         name = gets.chomp
       end
 
-  @students
+  puts "And now the cohort please"
 
+  cohort = gets.chomp
+
+    while !cohort.empty? do
+      @students << {cohort: cohort}
+      cohort = gets.chomp
+    end
+
+    puts "Now we have #{@students.count} students"
 end
+
+
 
 #Introduce the Academy
 def print_header
@@ -45,8 +52,8 @@ def print(students, letter_selection)
     @students.each_with_index {|student, index|
       indexplus1 = index+1
       if letter_selection != String
-        if student[:name].start_with? letter_selection.upcase
-        puts "#{indexplus1}: #{student[:name]} (#{student[:cohort].capitalize} - born in #{student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(100)
+        if student[:name].to_s.start_with? letter_selection.upcase
+        puts "#{indexplus1}: #{student[:name]} (#{student[:cohort].to_s.capitalize} - born in #{student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(100)
         end
       else
         puts "#{indexplus1}: #{student[:name]} (#{student[:cohort].capitalize} cohort - born in #{ student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(100)
@@ -64,5 +71,5 @@ end
 input_students
 
 print_header
-print(@students, "")
+print(@students, "G")
 print_footer(@students)
