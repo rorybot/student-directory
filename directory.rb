@@ -35,8 +35,8 @@ end
 =end
 #Introduce the Academy
 def print_header
-  puts "The students of Villains Academy".center(40)
-  puts "-------------".center(40)
+  puts "The students of Villains Academy".center(100).upcase
+  puts "-------------".center(100)
 end
 
 #Then print students from array...
@@ -46,10 +46,10 @@ def print(students, letter_selection)
       indexplus1 = index+1
       if letter_selection != String
         if student[:name].start_with? letter_selection.upcase
-        puts "#{indexplus1}: #{student[:name]} (#{student[:cohort]} - born in #{student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(40)
+        puts "#{indexplus1}: #{student[:name]} (#{student[:cohort].capitalize} - born in #{student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(100)
         end
       else
-        puts "#{indexplus1}: #{student[:name]} (#{student[:cohort]} - born in #{student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(40)
+        puts "#{indexplus1}: #{student[:name]} (#{student[:cohort].capitalize} cohort - born in #{student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(100)
       end
     }
 
@@ -58,7 +58,7 @@ def print(students, letter_selection)
 end
 #Then the number, and how great they are
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students".center(40)
+  puts "Overall, we have #{names.count} great students".center(100)
 end
 
 #students = input_students
