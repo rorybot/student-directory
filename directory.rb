@@ -1,16 +1,16 @@
 
   @students = [
   {name: "Dr. Hannibal Lecter", cohort: :august, age: 50, hobbies: "Cooking", born: "America"},
-  {name: "Darth Vader", cohort: :august, age: 45, hobbies: "Fencing", born: "Tatooine"},
-  {name: "Nurse Ratched", cohort: :august, age: 42, hobbies: "Nursing", born: "Hospital"},
-  {name: "Michael Corleone", cohort: :august, age: 35, hobbies: "Favouring", born: "da mafia"},
-  {name: "Alex DeLarge", cohort: :august, age: 25, hobbies: "No idea", born: "Huh"},
-  {name: "The Wicked Witch of the West", cohort: :august, age: 145, hobbies: "Wicca", born: "The West"},
-  {name: "Terminator", cohort: :august, age: 30, hobbies: "Biking", born: "the future"},
-  {name: "Freddy Krueger", cohort: :august, age: 111, hobbies: "Dreaming", born: "In yo dreams"},
-  {name: "The Joker", cohort: :august, age: 80, hobbies: "Comedy", born: "Gotham"},
-  {name: "Joffrey Baratheon", cohort: :august, age: 15, hobbies: "Archery", born: "King's Landing"},
-  {name: "Norman Bates", cohort: :august, age: 40, hobbies: "Dancing", born: "New York"},
+  {name: "Darth Vader", cohort: :september, age: 45, hobbies: "Fencing", born: "Tatooine"},
+  {name: "Nurse Ratched", cohort: :october, age: 42, hobbies: "Nursing", born: "Hospital"},
+  {name: "Michael Corleone", cohort: :november, age: 35, hobbies: "Favouring", born: "da mafia"},
+  {name: "Alex DeLarge", cohort: :january, age: 25, hobbies: "No idea", born: "Huh"},
+  {name: "The Wicked Witch of the West", cohort: :june, age: 145, hobbies: "Wicca", born: "The West"},
+  {name: "Terminator", cohort: :june, age: 30, hobbies: "Biking", born: "the future"},
+  {name: "Freddy Krueger", cohort: :september, age: 111, hobbies: "Dreaming", born: "In yo dreams"},
+  {name: "The Joker", cohort: :november, age: 80, hobbies: "Comedy", born: "Gotham"},
+  {name: "Joffrey Baratheon", cohort: :january, age: 15, hobbies: "Archery", born: "King's Landing"},
+  {name: "Norman Bates", cohort: :october, age: 40, hobbies: "Dancing", born: "New York"},
 ]
 
 
@@ -19,17 +19,17 @@ def input_students
   puts "To finish, just hit return after typing the name"
 
   # get the first name
-  name = gets.chomp
+  name = gets.strip.to_s
     puts "And now the cohort please"
-  cohort = gets.chomp
+  cohort = gets.strip.to_sym
   #when not empty, repeat code
     while !name.empty? do
       @students << {name: name, cohort: cohort}
-        name = gets.chomp
-        cohort = gets.chomp
+        name = gets.strip
+        cohort = gets.strip
       end
 
-    puts "Now we have #{@students.count} students"
+    @students.count == 1 ? (puts "Now we have #{@students.count} student") : (puts "Now we have #{@students.count} students")
 end
 
 
