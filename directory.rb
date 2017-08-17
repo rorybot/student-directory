@@ -1,3 +1,33 @@
+def interactive_menu
+  students = []
+  loop do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"# 9 because we'll be adding more items
+    selection = gets.chomp
+
+    case selection
+
+      when "1"
+        students = input_students
+      when "2"
+        puts "Would you like to filter by first letter name? If so enter now."
+          the_letter = gets.chomp.to_s
+        print_header
+        print_student_list(students, the_letter )
+        print_footer(students)
+      when "9"
+        exit #terminate program
+      else
+        puts "I don't know what you meant, try again"
+
+    end
+
+    # 2. read the input and save it into a variable
+    # 3. do what the user has asked
+  end
+end
+
 
   @students = [
   {name: "Dr. Hannibal Lecter", cohort: :august, age: 50, hobbies: "Cooking", born: "America"},
@@ -41,7 +71,7 @@ def print_header
 end
 
 #Then print students from array...
-def print(students, letter_selection)
+def print_student_list(students, letter_selection="")
 
     @students.each_with_index {|student, index|
       indexplus1 = index+1
@@ -62,10 +92,10 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great students".center(100)
 end
 
-input_students
+interactive_menu
 
-print_header
-print(@students, "G")
-print_footer(@students)
+#print_header
+#print_student_list(@students, "G")
+#print_footer(@students)
 
-puts @students
+#puts @students
