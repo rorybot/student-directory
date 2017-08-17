@@ -1,30 +1,39 @@
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"# 9 because we'll be adding more items
+end
+
+def show_students(students)
+  print_header
+  print_student_list(students, @the_letter)
+  print_footer(students)
+end
+
+def case_selection(selection)
+  case selection
+    when "1"
+      students = input_students
+    when "2"
+      puts "Would you like to filter by first letter name? If so enter now."
+
+      @the_letter = gets.chomp.to_s
+
+      show_students(@students)
+
+    when "9"
+      exit #terminate program
+    else
+      puts "I don't know what you meant, try again"
+
+  end
+end
+
 def interactive_menu
-  students = []
+  @students
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"# 9 because we'll be adding more items
-    selection = gets.chomp
-
-    case selection
-
-      when "1"
-        students = input_students
-      when "2"
-        puts "Would you like to filter by first letter name? If so enter now."
-          the_letter = gets.chomp.to_s
-        print_header
-        print_student_list(students, the_letter )
-        print_footer(students)
-      when "9"
-        exit #terminate program
-      else
-        puts "I don't know what you meant, try again"
-
-    end
-
-    # 2. read the input and save it into a variable
-    # 3. do what the user has asked
+    print_menu
+    case_selection(gets.chomp)
   end
 end
 
@@ -52,11 +61,20 @@ def input_students
   name = gets.strip.to_s
     puts "And now the cohort please"
   cohort = gets.strip.to_sym
+    puts "Age?"
+  age = gets.strip.to_i
+    puts "Any...hobbies?"
+  hobbies = gets.strip.to_s
+    puts "Oh, and where was they born?"
+  born = gets.strip.to_s
   #when not empty, repeat code
     while !name.empty? do
-      @students << {name: name, cohort: cohort}
+      @students << {name: name, cohort: cohort, age: age, hobbies: hobbies, born: born}
         name = gets.strip
         cohort = gets.strip
+        age = gets.strip
+        hobbies = gets.strip
+        born = gets.strip
       end
 
     @students.count == 1 ? (puts "Now we have #{@students.count} student") : (puts "Now we have #{@students.count} students")
