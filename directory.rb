@@ -1,3 +1,5 @@
+@students = []
+
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
@@ -30,7 +32,6 @@ def case_selection(selection)
 end
 
 def interactive_menu
-  @students
   loop do
     print_menu
     case_selection(gets.chomp)
@@ -38,25 +39,27 @@ def interactive_menu
 end
 
 
-  @students = [
-  {name: "Dr. Hannibal Lecter", cohort: :august, age: 50, hobbies: "Cooking", born: "America"},
-  {name: "Darth Vader", cohort: :september, age: 45, hobbies: "Fencing", born: "Tatooine"},
-  {name: "Nurse Ratched", cohort: :october, age: 42, hobbies: "Nursing", born: "Hospital"},
-  {name: "Michael Corleone", cohort: :november, age: 35, hobbies: "Favouring", born: "da mafia"},
-  {name: "Alex DeLarge", cohort: :january, age: 25, hobbies: "No idea", born: "Huh"},
-  {name: "The Wicked Witch of the West", cohort: :june, age: 145, hobbies: "Wicca", born: "The West"},
-  {name: "Terminator", cohort: :june, age: 30, hobbies: "Biking", born: "the future"},
-  {name: "Freddy Krueger", cohort: :september, age: 111, hobbies: "Dreaming", born: "In yo dreams"},
-  {name: "The Joker", cohort: :november, age: 80, hobbies: "Comedy", born: "Gotham"},
-  {name: "Joffrey Baratheon", cohort: :january, age: 15, hobbies: "Archery", born: "King's Landing"},
-  {name: "Norman Bates", cohort: :october, age: 40, hobbies: "Dancing", born: "New York"},
+
+=begin #Prefilled list
+@students = [
+{name: "Dr. Hannibal Lecter", cohort: :august, age: 50, hobbies: "Cooking", born: "America"},
+{name: "Darth Vader", cohort: :september, age: 45, hobbies: "Fencing", born: "Tatooine"},
+{name: "Nurse Ratched", cohort: :october, age: 42, hobbies: "Nursing", born: "Hospital"},
+{name: "Michael Corleone", cohort: :november, age: 35, hobbies: "Favouring", born: "da mafia"},
+{name: "Alex DeLarge", cohort: :january, age: 25, hobbies: "No idea", born: "Huh"},
+{name: "The Wicked Witch of the West", cohort: :june, age: 145, hobbies: "Wicca", born: "The West"},
+{name: "Terminator", cohort: :june, age: 30, hobbies: "Biking", born: "the future"},
+{name: "Freddy Krueger", cohort: :september, age: 111, hobbies: "Dreaming", born: "In yo dreams"},
+{name: "The Joker", cohort: :november, age: 80, hobbies: "Comedy", born: "Gotham"},
+{name: "Joffrey Baratheon", cohort: :january, age: 15, hobbies: "Archery", born: "King's Landing"},
+{name: "Norman Bates", cohort: :october, age: 40, hobbies: "Dancing", born: "New York"},
 ]
+=end
 
 
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return after typing the name"
-
   # get the first name
   name = gets.strip.to_s
     puts "And now the cohort please"
@@ -107,7 +110,7 @@ def print_student_list(students, letter_selection="")
 end
 #Then the number, and how great they are
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students".center(100)
+   names.count == 1 ? (puts "Overall, we have #{names.count} great student".center(100)) : (puts "Overall, we have #{names.count} great students".center(100))
 end
 
 interactive_menu
