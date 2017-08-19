@@ -3,6 +3,7 @@
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"# 9 because we'll be adding more items
 end
 
@@ -22,6 +23,9 @@ def case_selection(selection)
       @the_letter = gets.chomp.to_s
 
       show_students(@students)
+
+    when "3"
+      save_students
 
     when "9"
       exit #terminate program
@@ -111,6 +115,16 @@ end
 #Then the number, and how great they are
 def print_footer(names)
    names.count == 1 ? (puts "Overall, we have #{names.count} great student".center(100)) : (puts "Overall, we have #{names.count} great students".center(100))
+end
+
+def save_students
+  file = File.open("students.csv", "w")
+  @students.each {|student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  }
+  file.close
 end
 
 interactive_menu
