@@ -21,7 +21,7 @@ def case_selection(selection)
     when "2"
       puts "Would you like to filter by first letter name? If so enter now."
 
-      @the_letter = gets.chomp.to_s
+      @the_letter = STDIN.gets.chomp.to_s
 
       show_students(@students)
 
@@ -41,8 +41,9 @@ end
 
 def interactive_menu
   loop do
+    try_load_students
     print_menu
-    case_selection(gets.chomp)
+    case_selection(STDIN.gets.chomp)
   end
 end
 
@@ -69,23 +70,23 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return after typing the name"
   # get the first name
-  name = gets.strip.to_s
+  name = STDIN.gets.strip.to_s
     puts "And now the cohort please"
-  cohort = gets.strip.to_sym
+  cohort = STDIN.gets.strip.to_sym
     puts "Age?"
-  age = gets.strip.to_i
+  age = STDIN.gets.strip.to_i
     puts "Any...hobbies?"
-  hobbies = gets.strip.to_s
+  hobbies = STDIN.gets.strip.to_s
     puts "Oh, and where was they born?"
-  born = gets.strip.to_s
+  born = STDIN.gets.strip.to_s
   #when not empty, repeat code
     while !name.empty? do
       @students << {name: name, cohort: cohort, age: age, hobbies: hobbies, born: born}
-        name = gets.strip
-        cohort = gets.strip
-        age = gets.strip
-        hobbies = gets.strip
-        born = gets.strip
+        name = STDIN.gets.strip
+        cohort = STDIN.gets.strip
+        age = STDIN.gets.strip
+        hobbies = STDIN.gets.strip
+        born = STDIN.gets.strip
       end
 
     @students.count == 1 ? (puts "Now we have #{@students.count} student") : (puts "Now we have #{@students.count} students")
@@ -131,14 +132,27 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each { |line|
     name, cohort, born, age, hobbies = line.chomp.split (',')
       @students << {name: name, cohort: cohort.to_sym, born: born, age: age.to_i, hobbies: hobbies}
       }
   file.close
 end
+
+def try_load_students
+  filename = ARGV.first #1st arg from cmd line
+  return if filename.nil? #grab nothing if nothing given
+  if File.exists?(filename) #if file exists
+    load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+  else #if not exists
+    puts "sorry, #{filename} doesn't exist."
+    exit #quit the program
+  end
+end
+
 
 interactive_menu
 
