@@ -65,28 +65,28 @@ end
 ]
 =end
 
+def standard_string_getter
+  STDIN.gets.strip.to_s
+end
+
 
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return after typing the name"
   # get the first name
-  name = STDIN.gets.strip.to_s
+  name = standard_string_getter
     puts "And now the cohort please"
   cohort = STDIN.gets.strip.to_sym
     puts "Age?"
   age = STDIN.gets.strip.to_i
-    puts "Any...hobbies?"
-  hobbies = STDIN.gets.strip.to_s
+    puts "Any...hobbies? If none, type 'nothing'"
+  hobbies = standard_string_getter
     puts "Oh, and where was they born?"
-  born = STDIN.gets.strip.to_s
+  born = standard_string_getter
   #when not empty, repeat code
     while !name.empty? do
-      @students << {name: name, cohort: cohort, age: age, hobbies: hobbies, born: born}
-        name = STDIN.gets.strip
-        cohort = STDIN.gets.strip
-        age = STDIN.gets.strip
-        hobbies = STDIN.gets.strip
-        born = STDIN.gets.strip
+      @students << {name: name, cohort: cohort.to_sym, age: age.to_i, hobbies: hobbies, born: born}
+        name, cohort, age, hobbies, born = STDIN.gets.strip
       end
 
     @students.count == 1 ? (puts "Now we have #{@students.count} student") : (puts "Now we have #{@students.count} students")
@@ -101,21 +101,22 @@ def print_header
 end
 
 #Then print students from array...
-def print_student_list(students, letter_selection="")
 
+def student_putter(indexthing,the_student)
+  puts "#{indexthing}: #{the_student[:name]} (#{the_student[:cohort].to_s.capitalize} - born in #{the_student[:born]}, age #{the_student[:age]} and enjoys #{the_student[:hobbies]})".center(100)
+end
+
+def print_student_list(students, letter_selection="")
     @students.each_with_index {|student, index|
       indexplus1 = index+1
       if letter_selection != String
         if student[:name].to_s.start_with? letter_selection.upcase
-        puts "#{indexplus1}: #{student[:name]} (#{student[:cohort].to_s.capitalize} - born in #{student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(100)
+          student_putter(indexplus1,student)
+        else
+          student_putter(indexplus1,student)
         end
-      else
-        puts "#{indexplus1}: #{student[:name]} (#{student[:cohort].capitalize} cohort - born in #{ student[:born]}, age #{student[:age]} and enjoys #{student[:hobbies]})".center(100)
       end
     }
-
-
-
 end
 #Then the number, and how great they are
 def print_footer(names)
@@ -140,6 +141,8 @@ def load_students(filename = "students.csv")
       }
   file.close
 end
+
+
 
 def try_load_students
   filename = ARGV.first #1st arg from cmd line
