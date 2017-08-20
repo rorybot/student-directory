@@ -126,7 +126,7 @@ def print_footer(names)
 end
 
 def save_students
-  filename_selector_proc
+  filename_selector
   file = File.open(@filename, "w")
   @students.each {|student|
     student_data = [student[:name], student[:cohort], student[:born], student[:age], student[:hobbies]]
@@ -139,21 +139,22 @@ def save_students
   "
 end
 
-def filename_selector_proc
+def filename_selector
   puts "Whats the filename?"
   @filename = STDIN.gets.strip
- proc = Proc.new {
-    while @filename == Integer || nil do
-      puts "You have not made a selection. I am returning you to the interactive menu
+
+    if @filename.include? ".csv" || @filename == nil 
+      return
+    else
+      puts "You have not made a valid selection. I am returning you to the interactive menu
       "
-     interactive_menu
+      interactive_menu
     end
-  }
-  proc.call
+
 end
 
 def load_students
-  filename_selector_proc and return
+  filename_selector
   file = File.open(@filename, "r")
   file.readlines.each { |line|
     name, cohort, born, age, hobbies = line.chomp.split (',')
@@ -163,7 +164,7 @@ def load_students
 
 
     puts "
-    <Beep boop> students.csv loaded!
+    <Beep boop> #{@filename} loaded!
     "
 end
 
