@@ -143,7 +143,7 @@ def filename_selector
   puts "Whats the filename?"
   @filename = STDIN.gets.strip
 
-    if @filename.include? ".csv" || @filename == nil 
+    if @filename.include? ".csv" || @filename == nil
       return
     else
       puts "You have not made a valid selection. I am returning you to the interactive menu
@@ -155,12 +155,12 @@ end
 
 def load_students
   filename_selector
-  file = File.open(@filename, "r")
-  file.readlines.each { |line|
+  File.open(@filename, "r") do |f|
+  f.readlines.each { |line|
     name, cohort, born, age, hobbies = line.chomp.split (',')
       @students << {name: name, cohort: cohort.to_sym, born: born, age: age.to_i, hobbies: hobbies}
       }
-  file.close
+  end
 
 
     puts "
