@@ -128,6 +128,7 @@ end
 def save_students
   filename_selector
   file = File.open(@filename, "w")
+
   @students.each {|student|
     student_data = [student[:name], student[:cohort], student[:born], student[:age], student[:hobbies]]
     csv_line = student_data.join(",")
@@ -135,7 +136,7 @@ def save_students
   }
   file.close
   puts "
-  <Beep boop> students.csv saved!
+  <Beep boop> #{@filename} saved!
   "
 end
 
@@ -143,29 +144,31 @@ def filename_selector
   puts "Whats the filename?"
   @filename = STDIN.gets.strip
 
-    if @filename.include? ".csv" || @filename == nil
-      return
-    else
+    if !@filename.include? (".csv") || (@filename != nil)
       puts "You have not made a valid selection. I am returning you to the interactive menu
       "
       interactive_menu
+
     end
 
 end
 
 def load_students
+  @students = []
   filename_selector
-  File.open(@filename, "r") do |f|
-  f.readlines.each { |line|
-    name, cohort, born, age, hobbies = line.chomp.split (',')
-      @students << {name: name, cohort: cohort.to_sym, born: born, age: age.to_i, hobbies: hobbies}
-      }
-  end
+  require 'csv'
+  file = File.open(@filename, "r")
 
+    CSV.parse(file, headers: false) { |row|
+        @students << {name: row[0], cohort: row[1], born: row[2], age: row[3], hobbies: row[4]}
+      }
+
+      ensure file.close
 
     puts "
     <Beep boop> #{@filename} loaded!
     "
+
 end
 
 
