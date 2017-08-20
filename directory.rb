@@ -3,8 +3,8 @@
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save a list"
+  puts "4. Load a list"
   puts "9. Exit"# 9 because we'll be adding more items
 end
 
@@ -126,7 +126,8 @@ def print_footer(names)
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  filename_selector_proc
+  file = File.open(@filename, "w")
   @students.each {|student|
     student_data = [student[:name], student[:cohort], student[:born], student[:age], student[:hobbies]]
     csv_line = student_data.join(",")
@@ -138,16 +139,32 @@ def save_students
   "
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+def filename_selector_proc
+  puts "Whats the filename?"
+  @filename = STDIN.gets.strip
+ proc = Proc.new {
+    while @filename == Integer || nil do
+      puts "You have not made a selection. I am returning you to the interactive menu
+      "
+     interactive_menu
+    end
+  }
+  proc.call
+end
+
+def load_students
+  filename_selector_proc and return
+  file = File.open(@filename, "r")
   file.readlines.each { |line|
     name, cohort, born, age, hobbies = line.chomp.split (',')
       @students << {name: name, cohort: cohort.to_sym, born: born, age: age.to_i, hobbies: hobbies}
       }
   file.close
-  puts "
-  <Beep boop> students.csv loaded!
-  "
+
+
+    puts "
+    <Beep boop> students.csv loaded!
+    "
 end
 
 
