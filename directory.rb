@@ -27,6 +27,7 @@ def case_selection(selection)
 
     when "3"
       save_students
+      "<Beep boop> File successfully saved"
 
     when "4"
       load_students
@@ -87,6 +88,7 @@ def input_students
     while !name.empty? do
       @students << {name: name, cohort: cohort.to_sym, age: age.to_i, hobbies: hobbies, born: born}
         name, cohort, age, hobbies, born = STDIN.gets.strip
+
       end
 
     @students.count == 1 ? (puts "Now we have #{@students.count} student") : (puts "Now we have #{@students.count} students")
@@ -131,6 +133,9 @@ def save_students
     file.puts csv_line
   }
   file.close
+  puts "
+  <Beep boop> students.csv saved!
+  "
 end
 
 def load_students(filename = "students.csv")
@@ -140,6 +145,9 @@ def load_students(filename = "students.csv")
       @students << {name: name, cohort: cohort.to_sym, born: born, age: age.to_i, hobbies: hobbies}
       }
   file.close
+  puts "
+  <Beep boop> students.csv loaded!
+  "
 end
 
 
